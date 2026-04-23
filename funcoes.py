@@ -90,3 +90,23 @@ def calcula_pontos_sequencia_alta(dados):
         return 30
     
     return 0
+
+def calcula_pontos_full_house(dados):
+    contagens = []
+    
+    for i in range(len(dados)):
+        valor = dados[i]
+        cont = 0
+        for j in range(len(dados)):
+            if dados[j] == valor:
+                cont += 1
+        if cont not in contagens:
+            contagens.append(cont)
+    
+    if len(contagens) == 2 and 3 in contagens and 2 in contagens:
+        soma = 0
+        for d in dados:
+            soma += d
+        return soma
+    
+    return 0
