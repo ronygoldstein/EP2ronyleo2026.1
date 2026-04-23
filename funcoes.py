@@ -5,3 +5,9 @@ def rolar_dados(qtd):
     for _ in range(qtd):
         resultados.append(random.randint(1, 6))
     return resultados
+
+def guardar_dado(dados_rolados, dados_no_estoque, indice):
+    dado = dados_rolados[indice]
+    del dados_rolados[indice]
+    dados_no_estoque.append(dado)
+    return [dados_rolados, dados_no_estoque]
