@@ -124,3 +124,4 @@ def calcula_pontos_quadra(dados):
                 soma += d
             return soma
     return 0
+
