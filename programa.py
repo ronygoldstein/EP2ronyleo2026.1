@@ -13,7 +13,22 @@ def jogo():
         }
     }
 
-    for _ in range(12):
+    imprime_cartela(cartela)
+
+    while True:
+        acabou = True
+
+        for v in cartela['regra_simples'].values():
+            if v == -1:
+                acabou = False
+
+        for v in cartela['regra_avancada'].values():
+            if v == -1:
+                acabou = False
+
+        if acabou:
+            break
+
         dados_guardados = []
         dados_rolados = rolar(dados_guardados)
         rerrolagens = 0
@@ -28,18 +43,14 @@ def jogo():
             if opcao == "1":
                 print("Digite o índice do dado a ser guardado (0 a 4):")
                 i = int(input())
-                if i >= 0 and i < len(dados_rolados):
-                    res = guardar_dado(dados_rolados, dados_guardados, i)
-                    dados_rolados = res[0]
-                    dados_guardados = res[1]
+                if 0 <= i < len(dados_rolados):
+                    dados_rolados, dados_guardados = guardar_dado(dados_rolados, dados_guardados, i)
 
             elif opcao == "2":
                 print("Digite o índice do dado a ser removido (0 a 4):")
                 i = int(input())
-                if i >= 0 and i < len(dados_guardados):
-                    res = remover_dado(dados_rolados, dados_guardados, i)
-                    dados_rolados = res[0]
-                    dados_guardados = res[1]
+                if 0 <= i < len(dados_guardados):
+                    dados_rolados, dados_guardados = remover_dado(dados_rolados, dados_guardados, i)
 
             elif opcao == "3":
                 if rerrolagens >= 2:
@@ -70,6 +81,7 @@ def jogo():
 
             else:
                 print("Opção inválida. Tente novamente.")
+                continue
 
     imprime_cartela(cartela)
 
