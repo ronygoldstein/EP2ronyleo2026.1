@@ -62,3 +62,31 @@ def calcula_pontos_sequencia_baixa(dados):
         return 15
     
     return 0
+
+def calcula_pontos_sequencia_alta(dados):
+    tem1 = False
+    tem2 = False
+    tem3 = False
+    tem4 = False
+    tem5 = False
+    tem6 = False
+    
+    for d in dados:
+        if d == 1:
+            tem1 = True
+        elif d == 2:
+            tem2 = True
+        elif d == 3:
+            tem3 = True
+        elif d == 4:
+            tem4 = True
+        elif d == 5:
+            tem5 = True
+        elif d == 6:
+            tem6 = True
+    
+    if (tem1 and tem2 and tem3 and tem4 and tem5) or \
+       (tem2 and tem3 and tem4 and tem5 and tem6):
+        return 30
+    
+    return 0
