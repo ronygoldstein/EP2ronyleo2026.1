@@ -92,23 +92,25 @@ def calcula_pontos_sequencia_alta(dados):
     return 0
 
 def calcula_pontos_full_house(dados):
+    valores = []
     contagens = []
-    
+
     for i in range(len(dados)):
         valor = dados[i]
-        cont = 0
-        for j in range(len(dados)):
-            if dados[j] == valor:
-                cont += 1
-        if cont not in contagens:
+        if valor not in valores:
+            valores.append(valor)
+            cont = 0
+            for j in range(len(dados)):
+                if dados[j] == valor:
+                    cont += 1
             contagens.append(cont)
-    
-    if len(contagens) == 2 and 3 in contagens and 2 in contagens:
+
+    if len(contagens) == 2 and (3 in contagens and 2 in contagens):
         soma = 0
         for d in dados:
             soma += d
         return soma
-    
+
     return 0
 
 def calcula_pontos_quadra(dados):
@@ -155,7 +157,31 @@ def faz_jogada(dados, categoria, cartela_de_pontos):
         if cartela_de_pontos['regra_simples'][cat] == -1:
             cartela_de_pontos['regra_simples'][cat] = pontos_simples[cat]
     else:
-        if cartela_de_pontos['regra_avancada'][categoria] == -1:
-            cartela_de_pontos['regra_avancada'][categoria] = pontos_avancados[categoria]
+        if categoria in cartela_de_pontos['regra_avancada']:
+            if cartela_de_pontos['regra_avancada'][categoria] == -1:
+                cartela_de_pontos['regra_avancada'][categoria] = pontos_avancados[categoria]
     
     return cartela_de_pontos
+
+def imprime_cartela(cartela):
+    print("Cartela de Pontos:")
+    print("-"*25)    
+    for i in range(1, 7):
+        filler = " " * (15 - len(str(i)))
+        if cartela['regra_simples'][i] != -1:
+            print(f"| {i}: {filler}| {cartela['regra_simples'][i]:02} |")
+        else:
+            print(f"| {i}: {filler}|    |")
+    for i in cartela['regra_avancada'].keys():
+        filler = " " * (15 - len(str(i)))
+        if cartela['regra_avancada'][i] != -1:
+            print(f"| {i}: {filler}| {cartela['regra_avancada'][i]:02} |")
+        else:
+            print(f"| {i}: {filler}|    |")
+    print("-"*25)
+
+def rolar(dados_guardados):
+    novos = []
+    for _ in range(5 - len(dados_guardados)):
+        novos.append(random.randint(1, 6))
+    return novos
